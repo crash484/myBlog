@@ -13,7 +13,7 @@ export function Header() {
           <Link href="/" className="text-sm font-medium hover:text-primary transition-colors">
             Home
           </Link>
-          <Link href="/" className="text-sm font-medium hover:text-primary transition-colors">
+          <Link href="/about" className="text-sm font-medium hover:text-primary transition-colors">
             About
           </Link>
           <ThemeToggle />
