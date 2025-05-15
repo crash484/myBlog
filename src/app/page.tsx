@@ -3,8 +3,6 @@ import Link from "next/link"
 import { BlogPostCard } from "../components/blog-post-card"
 import { Header } from "../components/header"
 import { Footer } from "../components/footer"
-import { BlogPost } from "src/components/blog-post"
-
 import {createClient} from "@supabase/supabase-js"
 import { useEffect, useState } from "react";
 
