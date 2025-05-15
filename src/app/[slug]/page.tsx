@@ -1,0 +1,55 @@
+// src/app/blog/[id]/page.tsx
+import { notFound } from "next/navigation";
+import { createClient } from "@supabase/supabase-js";
+import { Header } from "../../components/header";
+import { Footer } from "../../components/footer";
+import { BlogPost } from "../../components/blog-post"; // Adjust path as necessary
+import  Link  from "next/Link";
+import { ArrowLeft } from "lucide-react"
+
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
+const api = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string;
+
+const supabase = createClient(url, api);
+
+
+
+interface BlogPostPageProps {
+  params: {
+    slug: string
+  }
+}
+
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const slug = decodeURIComponent(params.slug);
+
+  // Fetch the specific post based on the ID from the URL
+  const { data: post, error } = await supabase
+    .from("Blog")
+    .select("*")
+    .eq("slug", slug)
+    .single(); // Fetch single post by ID
+
+  if (error) {
+    notFound(); // If there's an error or the post doesn't exist, show a 404 page
+  }
+
+
+  return (
+    <>
+      <Header />
+      <div className="container max-w-3xl py-10 mx-auto px-4 sm:px-6">
+        <Link
+          href="/"
+          className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors group"
+        >
+          <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
+          Back to all posts
+        </Link>
+
+        <BlogPost post={post} />
+      </div>
+      <Footer />
+    </>
+  )
+}
