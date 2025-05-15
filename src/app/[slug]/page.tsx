@@ -4,7 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 import { Header } from "../../components/header";
 import { Footer } from "../../components/footer";
 import { BlogPost } from "../../components/blog-post"; // Adjust path as necessary
-import  Link  from "next/Link";
+import  Link  from "next/link";
 import { ArrowLeft } from "lucide-react"
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
