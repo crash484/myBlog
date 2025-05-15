@@ -5,7 +5,7 @@ const inter = Inter({ subsets: ["latin"] })
 import { ThemeProvider } from "next-themes";
 
 export const metadata = {
-  title: "Minimalist Blog",
+  title: "Shashwat's Blog",
   description: "A clean and simple blog focused on content",
 }
 

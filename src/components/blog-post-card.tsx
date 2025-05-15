@@ -1,3 +1,5 @@
+import { formatDate } from "src/lib/utils"
+
 interface BlogPostCardProps {
   post: Post
 }
@@ -8,7 +10,7 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
       <div className="flex items-center gap-2 mb-3">
         <div className="w-2 h-2 rounded-full bg-primary"></div>
         <time dateTime={post.time} className="text-sm text-muted-foreground">
-          {post.time}
+          {formatDate(post.time)}
         </time>
       </div>
 

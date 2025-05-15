@@ -5,12 +5,15 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export function formatDate(dateString: string): string {
+  const date = new Date(dateString);
 
-export function calculateReadingTime(text: string) {
-  const wordsPerMinute = 200
-  const numberOfWords = text.split(/\s/g).length
-  const minutes = numberOfWords / wordsPerMinute
-  const readingTime = Math.ceil(minutes)
+  const day = date.getDate();
+  const month = date.toLocaleString("default", { month: "short" }); // e.g. May
+  const year = date.getFullYear();
+  
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
 
-  return readingTime
+  return `${day} ${month} ${year} at ${hours}:${minutes}`;
 }

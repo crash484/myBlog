@@ -1,4 +1,3 @@
-// src/app/blog/[id]/page.tsx
 import { notFound } from "next/navigation";
 import { createClient } from "@supabase/supabase-js";
 import { Header } from "../../components/header";
@@ -12,8 +11,6 @@ const api = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string;
 
 const supabase = createClient(url, api);
 
-
-
 interface BlogPostPageProps {
   params: {
     slug: string
@@ -23,15 +20,15 @@ interface BlogPostPageProps {
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const slug = decodeURIComponent(params.slug);
 
-  // Fetch the specific post based on the ID from the URL
+  // Fetching the post based on the slug from the URL
   const { data: post, error } = await supabase
     .from("Blog")
     .select("*")
     .eq("slug", slug)
-    .single(); // Fetch single post by ID
+    .single();
 
   if (error) {
-    notFound(); // If there's an error or the post doesn't exist, show a 404 page
+    notFound();
   }
 
 
