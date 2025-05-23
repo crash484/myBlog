@@ -16,7 +16,7 @@ export default function Home() {
   const[blogPosts, setblogposts] = useState<any[]>([]);
 
   async function getBlogs() {
-      const { data: Blog, error}= await supabase.from('Blog').select("*");
+    const { data: Blog, error}= await supabase.from('Blog').select("*");
       
     if (error) {
       console.error('Error fetching todos:', error.message);

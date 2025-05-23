@@ -18,7 +18,8 @@ interface BlogPostPageProps {
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const slug = decodeURIComponent(params.slug);
+  const parameters = await params
+  const slug = decodeURIComponent(parameters.slug);
 
   // Fetching the post based on the slug from the URL
   const { data: post, error } = await supabase
