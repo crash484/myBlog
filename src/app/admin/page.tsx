@@ -2,12 +2,13 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { createClient } from "@supabase/supabase-js"
+import { useRouter } from "next/navigation"
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
 const api = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string;
@@ -22,6 +23,32 @@ export default function AdminPage() {
   const [content, setContent] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [message, setMessage] = useState({ text: "", type: "" })
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const router = useRouter()
+
+  //use effect to verify the token
+  useEffect(()=>{
+    const verifyToken = async ()=>{
+      try{
+        const res = await fetch('/api/verify-token',{
+          method: 'GET',
+          credentials: 'include',
+        });
+
+        if(!res.ok) throw new Error('Invalid');
+
+        const data = await res.json();
+        if (!data.valid) throw new Error('Invalid');
+
+        setIsAuthenticated(true);
+      } catch( err ) {
+        router.push('/login');
+        setIsAuthenticated(false);
+      }
+    };
+
+    verifyToken();
+  },[router])
 
   // Generate slug from title
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,6 +105,15 @@ export default function AdminPage() {
   } finally {
     setIsSubmitting(false);
   }
+  }
+
+  // Show loading or redirect if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <div className="container max-w-md py-20 mx-auto px-4 sm:px-6 text-center">
+        <p>Redirecting to login...</p>
+      </div>
+    )
   }
 
   return (
