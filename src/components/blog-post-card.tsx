@@ -19,7 +19,7 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
       <p className="text-muted-foreground line-clamp-3 mb-4 flex-grow">{post.excerpt}</p>
 
       <div className="text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center">
-        Read article
+        Read
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
