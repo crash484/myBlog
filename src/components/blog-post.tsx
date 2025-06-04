@@ -14,7 +14,11 @@ export function BlogPost({ post }: BlogPostProps) {
       </div>
 
       <div className="leading-relaxed">
-        {post.content}
+        {post.content.flatMap((paragraph, idx) =>
+          paragraph.split('\n').map((line, i) => (
+            <p key={`${idx}-${i}`}>{line}</p>
+          ))
+        )}
       </div>
     </article>
   )
